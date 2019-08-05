@@ -1,0 +1,23 @@
+{
+  "name": "snippit",
+  "description": "A simple file snippet template management tool with flexible local configurations",
+  "keywords": [ "template", "snippet", "boilerplate", "configuration", "management" ],
+  "author": "Dan Carter <dan@equalscollective.com>",
+  "version": "0.1.0",
+  "main": "index.js",
+  "preferGlobal": true,
+  "bin": {
+    "snippit": "bin/index.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "fs-extra": "^8.1.0",
+    "yargs": "^13.3.0"
+  },
+  "devDependencies": {
+    "eslint": "5.3.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.18.2"
+  }
+}
