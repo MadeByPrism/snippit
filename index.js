@@ -2,14 +2,32 @@
 
 const chalk = require('chalk');
 const fs = require('fs-extra');
+const os = require('os');
 const path = require('path');
+
 const locateParentFile = require('./lib/locateParentFile');
 const maxPath = require('./lib/maxPath');
+const padNumber = require('./lib/padNumber');
 const processSnippetConfig = require('./lib/processSnippetConfig');
 
 module.exports = (snippetName, destination, variables = {}) => {
   const isCli = process.env.SNIPPIT_VIA_CLI;
   const maxSearch = maxPath(destination);
+
+  // Generate predefined variables
+  // eslint-disable-next-line no-param-reassign
+  variables = Object.assign(variables, {
+    // Date variables
+    'DATE:Y': String(new Date().getFullYear()),
+    'DATE:M': padNumber(new Date().getMonth(), 2),
+    'DATE:D': padNumber(new Date().getDate(), 2),
+
+    // Time variables
+    'TIME:H': padNumber(new Date().getHours(), 2),
+    'TIME:M': padNumber(new Date().getMinutes(), 2),
+    'TIME:S': padNumber(new Date().getSeconds(), 2),
+    'TIME:MS': padNumber(new Date().getMilliseconds(), 4),
+  });
 
   // Locate snippet config
   if (isCli) {
@@ -44,13 +62,29 @@ module.exports = (snippetName, destination, variables = {}) => {
 
   locateSnippetConfig(destination);
 
+  // Fallback to global configs in user home directory
+  if (!snippetConfig) {
+    const globalSnippetPath = path.resolve(os.homedir(), '.snippit', `${snippetName.replace(/\/|\.\./g, '')}.snippit.json`);
+    try {
+      if (fs.pathExistsSync(globalSnippetPath)) {
+        snippetConfig = fs.readJsonSync(globalSnippetPath);
+        snippetConfigPath = globalSnippetPath;
+      }
+    } catch (e) {
+      // eslint-disable-next-line no-empty
+    }
+  }
+
+  // No config found
   if (!snippetConfig) {
     if (isCli) {
       console.log(chalk.red(`\nCould not find a snippet config for "${snippetName}"`));
       process.exit(0);
     }
     return false;
-  } if (isCli) {
+  }
+
+  if (isCli) {
     console.log(`  Using config: ${chalk.grey(`${snippetConfigPath}`)}`);
   }
 
