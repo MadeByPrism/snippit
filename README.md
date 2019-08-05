@@ -73,7 +73,7 @@ Global snippet configurations can be placed in a `.snippit` directory in your us
 
 #### Example `snippits.json` configuration
 
-```json
+```jsonc
 {
   // Top level object items are individually named snippet rules
   "test": {
@@ -105,7 +105,7 @@ Global snippet configurations can be placed in a `.snippit` directory in your us
 
 #### Example global `SnippetName.snippit.json` configuration
 
-```json
+```jsonc
 {
   "{{@name}}.{{@DATE:Y}}-{{@DATE:M}}-{{@DATE:D}}.ts": [
     "// Content for {{@name}}",
