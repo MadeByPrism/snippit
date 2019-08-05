@@ -85,8 +85,9 @@ This allows you to keep snippet configurations out of project files if needed.
   "varfunc": {
     "{{@name}}.variable-test.tsx": [
       // Arrays may also be used in place of strings for multiline content
-      "export const {{@name}}{{@!var}} = () => {",
-      "  console.log('This is {{@name}}.variable-test.ts with the variable')",
+      "export const {{@name}}{{@var}} = () => {",
+      "  console.log('Required variable: {{@var}}');",
+      "  console.log('Optional variable: {{@?optionalVar}}');",
       "}"
     ]
   }
@@ -99,7 +100,7 @@ This allows you to keep snippet configurations out of project files if needed.
 
 By default, you are always provided with `{{@name}}` but additional variables can be set to increase flexibility.
 
-To explicitly require a variable prepend it with `!` (e.g. `{{@!variableName}}`). Note that this will cause failing errors if the variable is not provided when the snippet is generated.
+Variables are explicitly required by default. To make an optional variable prepend it with `?` (e.g. `{{@?variableName}}`).
 
 #### Caveats
 
