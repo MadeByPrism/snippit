@@ -1,7 +1,13 @@
 {
   "name": "snippit",
   "description": "A simple file snippet template management tool with flexible local configurations",
-  "keywords": [ "template", "snippet", "boilerplate", "configuration", "management" ],
+  "keywords": [
+    "template",
+    "snippet",
+    "boilerplate",
+    "configuration",
+    "management"
+  ],
   "author": "Dan Carter <dan@equalscollective.com>",
   "version": "1.0.0",
   "main": "index.js",
